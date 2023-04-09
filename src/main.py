@@ -8,6 +8,7 @@ import os
 import settings
 
 import pandas as pd
+import numpy as np
 import openai
 
 from openai.embeddings_utils import get_embedding
@@ -20,20 +21,24 @@ def get_data():
     
     return pd.read_csv(os.path.join(parent_dir, 'data', 'actions_data.csv'))
 
-def embed_data(df, embedding_model):
+def embed_data(df, embedding_model = 'text-embedding-ada-002'):
     
     df['embeddings'] = df.action.apply(lambda x: get_embedding(x, engine=embedding_model))
     df.to_csv(os.path.join(os.path.dirname(os.getcwd()), 'data', 'actions_data_embedded.csv'))
     
+def read_embeddings():
+    
+    df = pd.read_csv(os.path.join(os.path.dirname(os.getcwd()), 'data', 'actions_data_embedded.csv'))
+    df['embeddings'] = df.embeddings.apply(eval).apply(np.array)
+    df = df.loc[:, ['action', 'embeddings']]
+    
+    return df
 
 def main():
     
-    embedding_model = 'text-embedding-ada-002'
-    embedding_encoding = 'cl100k_base'
-    max_tokens = 8000
+    print(read_embeddings())
     
-    data = get_data()
-    embed_data(data, embedding_model)
+
     
     
 if __name__ == '__main__':
