@@ -42,7 +42,7 @@ def read_embeddings():
 
 def Plot_clusters(matrix, df):
     
-    tsne = TSNE(n_components=2, perplexity=15, random_state=42, init="random", learning_rate=200)
+    tsne = TSNE(n_components=2, perplexity=10, random_state=42, init="random", learning_rate=200)
     vis_dims2 = tsne.fit_transform(matrix)
 
     x = [x for x, y in vis_dims2]
@@ -57,6 +57,10 @@ def Plot_clusters(matrix, df):
         avg_y = ys.mean()
 
         plt.scatter(avg_x, avg_y, marker="x", color=color, s=100)
+    
+    for i, txt in enumerate(df.action):
+        plt.annotate(txt, (x[i], y[i]))
+    
     plt.title("Clusters identified visualized in language 2d using t-SNE")
     plt.show()
     
