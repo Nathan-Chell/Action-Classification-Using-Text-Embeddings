@@ -8,9 +8,11 @@ import os
 import settings
 
 import pandas as pd
+import openai
+
 from openai.embeddings_utils import get_embedding
 
-os.environ['OPENAI_API_KEY'] = settings.OPENAI_API_KEY
+openai.api_key = settings.OPENAI_API_KEY
 
 def get_data():
     cur_dir = os.getcwd()
