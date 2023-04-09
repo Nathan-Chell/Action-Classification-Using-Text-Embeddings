@@ -1,0 +1,25 @@
+action
+play spotify
+start spotify
+stop spotify
+resume spotify
+play music
+start music
+stop music
+resume music
+play playlist
+start playlist
+stop playlist
+resume playlist
+message
+tell
+inform
+let [person] know
+message [person]
+tell [person]
+inform [person]
+shutdown
+startup
+init
+initalise
+
